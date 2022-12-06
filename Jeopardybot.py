@@ -20,204 +20,25 @@ def get_token():
 async def on_ready():
     print("Connected!")
 
-### Helper functions for displaying rooms ###
-
-#Lister
-
-item_room_0 = ["flashlight"]
-item_room_1 = ["key"]
-item_room_2 = []
-item_room_3 = []
-item_inventory = []
-
-#Dictionaries
-
-Items = {
-    "0" : item_room_0, 
-    "1" : item_room_1,
-    "2" : item_room_2,
-    "3" : item_room_3,
-    "inventory" : item_inventory
-}
-
-current_room = 0
-
-
-class room:
-    def __init__(self,name,surroundings,object):
+class Catagory:
+    def __init__(self, name, question, answers):
         self.name = name
-        self.surroundings = surroundings
-        self.object = object
-        
-
-    def show(self):
-        return self.name + "description: " + self.surroundings + str(self.object) 
-
-#Klasser & objekter
-
-room_0 = room("Cell ", "You are in an empty room with white walls. "
-    "Theres a door to your west. "
-    'If you need help type "!help" '
-    "Items available in this room ", list(Items.values())[list(Items.keys()).index("0")])
-
-room_1 = room("Hallway 1 ", "You are in an empty hallway, but you see a shiny key laying in the corner "
-    "There's a staircase to your north ", list(Items.values())[list(Items.keys()).index("1")])
-
-room_2 = room("Hallway 2 ", "Display the contents of room 2. "
-    "You are in an empty hallway on the second floor. "
-    "There's a locked room to your east ", list(Items.values())[list(Items.keys()).index("2")])
-
-room_3 = room("Guard room ", "You've unlocked the door. "
-    "In front of you there is a table, chairs and security cameras "
-    "There's an open window to your east ", list(Items.values())[list(Items.keys()).index("3")])
+        self.question = question
+        self.answers = answers
 
 
-def move_from_room_0(direction):
-    """ Room 0 only has a single exit , which leads north to room 1. """
-    if direction == "west": 
-        return 1
-    else:
-        return 0
+Math_q = {100 : 'What is: (2/1)*2', 200 : 'What is: 10*24', 300 : '', 400 : '', 500 : ''}
 
-def move_from_room_1(direction):
-    if direction == "north": 
-        return 2
-    elif direction == "east":  
-        return 0
-    else: 
-        return 1
-    
-def move_from_room_2(direction):
-    if direction == "east":
-        return 3
-    elif direction == "west":
-        return 1
-    else: 
-        return 2
+Capitals =  {100 : 'what is the capital of Denmark', 200 : 'what is the capital of Sweden', 300 : 'what is the capital of America', 400 : 'what is the capital of Japan', 500 : 'what is the capital of Jamaica'}
 
-def move_from_room_3(direction):
-    if direction == "east":
-        return
-    if direction == "west": 
-        return 2
-    else: 
-        return 3
+Celebs =  {100 : 'Image', 200 : 'Image', 300 : 'Image', 400 : 'Image', 500 : 'Image'}
 
-def show_room(room_num):
-    """Display the contents of the given room.
-    Input:
-    - room_num : int, the number of the room to show.
-    """
-    if room_num == 0:
-        return room_0.show()
-    elif room_num == 1: 
-        return room_1.show()
-    elif room_num == 2:
-        return room_2.show()
-    elif room_num == 3:
-        return room_3.show()
-    else:
-        reply = "You are out of bounds. Room", room_num, "does not exist."
-        return reply
-        
+Planets = {100 : '', 200 : '', 300 : '', 400 : '', 500 : 'what is the temputure of the suns surface'}
 
-def get_room_items(current_room):
-    """Find the list of items in the room."""
-    if current_room == 0:
-        return list(Items.values())[list(Items.keys()).index(0)]
-    elif current_room == 1:
-        return list(Items.values())[list(Items.keys()).index(1)]
-    elif current_room == 2: 
-        return list(Items.values())[list(Items.keys()).index(2)]
-    elif current_room == 3:
-        return list(Items.values())[list(Items.keys()).index(3)]
+landmarks = {100 : 'Image', 200 : 'Image', 300 : 'Image', 400 : 'Image', 500 : 'Image'}
 
-### The main game loop ###
 
-@client.event
-async def on_message(message):
-    global current_room
-    contents = message.content
-    user = message.author.id
-    
-    if contents.startswith("!look"):
-      await message.channel.send(show_room(current_room)) 
-    elif contents.startswith("!help"):
-      reply = ['"!look" gives a short presentation of the current room',
-               '"!grab" u can use the grab command to grab an item',
-               '"!walk" lets you walk the direction you want (North, west, east, south)',
-               '"!drop" lets you drop the items you dont want',
-               '"!quit" you can only use quit if you wish to exit the game',
-               '"!items" view the items that are available in your inventory']
-      await message.channel.send("\n".join(reply))
-    elif contents.startswith("!grab"):
-      item = contents[6:]
-      print(item)
-      for n in range(0,len(Items[str(current_room)])):
-        if item == Items[str(current_room)][n]:
-            if item == "flashlight":
-                Items[str(current_room)].remove(item) 
-                Items["inventory"].append(item)
-                reply = "You have grabbed this item: " + item
-                await message.channel.send(reply)
-            elif "flashlight" not in Items["inventory"]: 
-                reply = "It's too dark to see without flashlight" 
-                await message.channel.send(reply)
-            elif item == Items[str(current_room)][n]:
-                Items[str(current_room)].remove(item)
-                Items["inventory"].append(item)
-                reply = "You have grabbed this item: " + item
-                await message.channel.send(reply)
-        elif item in Items["inventory"]: 
-            reply = "You already have this item: " + item
-            await message.channel.send(reply)
-        else:
-          reply = "unable to find: ", item 
-          await message.channel.send(reply)
-    elif contents.startswith("!drop"):
-      item = contents[6:]
-      Items["inventory"].remove(item)
-      Items[str(current_room)].append(item)
-      reply = "You have dropped this item:" + item
-      print(item)
-      for n in range(0,len(Items["inventory"])):
-        if item == Items["inventory"][n]:
-            Items["inventory"].remove(item)
-            Items[str(current_room)].append(item)
-            reply = "You have dropped this item: " + item
-            await message.channel.send(reply)
-    elif contents.startswith("!inventory"):
-      for n in Items["inventory"]:
-        reply = n
-        await message.channel.send(reply)
-    elif contents.startswith("!walk"):
-      direction = contents[6:]
-      print(direction)
-      if "flashlight" in Items["inventory"]:
-        if current_room == 0:
-            current_room = move_from_room_0(direction)
-        elif current_room == 1:
-            current_room = move_from_room_1(direction)
-        elif current_room == 2:
-            if direction == "east":
-                if "key" in Items["inventory"]:
-                    current_room = move_from_room_2(direction)
-                else: 
-                    reply = "You can't unlock the door without the key"
-                    await message.channel.send(reply)
-            else:
-                current_room = move_from_room_2(direction)
-        elif current_room == 3: 
-            current_room = move_from_room_3(direction)
-            if direction == "east":
-                reply = "You have escaped prison!"
-                await message.channel.send(reply)
-                Restart
-      else:
-        reply = "Its too dark to move"
-        await message.channel.send(reply)
-    else:
-      pass
+
 
 
 token = get_token()
