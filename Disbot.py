@@ -24,8 +24,8 @@ async def on_ready():
 
 #Lister
 
-item_room_0 = ["flashlight"]
-item_room_1 = ["key"]
+item_room_0 = []
+item_room_1 = []
 item_room_2 = []
 item_room_3 = []
 item_inventory = []
