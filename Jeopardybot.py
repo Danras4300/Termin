@@ -1,5 +1,8 @@
 from pdb import Restart
 import discord
+import class_object as co
+import Images.Landmark as l
+import Images.Celeb as c
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -20,26 +23,14 @@ def get_token():
 async def on_ready():
     print("Connected!")
 
-class Catagory:
-    def __init__(self, name, question, answers):
-        self.name = name
-        self.question = question
-        self.answers = answers
-
-
-Math_q = {100 : 'What is: (2/1)*2', 200 : 'What is: 10*24', 300 : '', 400 : '', 500 : ''}
-
-Capitals =  {100 : 'what is the capital of Denmark', 200 : 'what is the capital of Sweden', 300 : 'what is the capital of America', 400 : 'what is the capital of Japan', 500 : 'what is the capital of Jamaica'}
-
-Celebs =  {100 : 'Image', 200 : 'Image', 300 : 'Image', 400 : 'Image', 500 : 'Image'}
-
-Planets = {100 : '', 200 : '', 300 : '', 400 : '', 500 : 'what is the temputure of the suns surface'}
-
-landmarks = {100 : 'Image', 200 : 'Image', 300 : 'Image', 400 : 'Image', 500 : 'Image'}
-
-
-
-
+@client.event
+async def on_message(message):
+  user_id = message.author.id
+  info = message.content
+  if info == "join":
+    
+  print(info)
+  print(user_id)
 
 token = get_token()
 client.run(token)
