@@ -39,23 +39,84 @@ async def on_message(message):
     reply = co.get_grid_lines(co.grid)
     await message.channel.send("\n".join(reply))
   elif str(user_id) in Players:
-    if contents.startswith("!math"):
-      points = int(contents[6:])
-      if points in q.Math_q:
-        reply = q.Math_q[points]
-        await message.channel.send(reply)
-      else:
-        reply = points, "is not possible to pick"
-        await message.channel.send(reply)
-    elif contents.startswith("!Capital"):
-      points = int(contents[9:])
-      if points in q.Capital_q:
-        reply = q.Capital_q[points]
-        await message.channel.send(reply)
-      else:
-        reply = points, "is not possible to pick"
-        await message.channel.send(reply)
-
+    if co.runs == 0: 
+      if contents.startswith("!Math"):
+        points = int(contents[6:])
+        if points in q.Math_q:
+          reply = q.Math_q[points]
+          await message.channel.send(reply)
+          co.runs = 1
+        else:
+          reply = points, "is not possible to pick"
+          await message.channel.send(reply)
+      elif contents.startswith("!Capital"):
+        points = int(contents[9:])
+        if points in q.Capital_q:
+          reply = q.Capital_q[points]
+          await message.channel.send(reply)
+          co.runs = 1
+        else:
+          reply = points, "is not possible to pick"
+          await message.channel.send(reply)
+      elif contents.startswith("!Celeb"):
+        points = int(contents[7:])
+        if points in q.Celeb_q:
+          reply = q.Celeb_q[points]
+          await message.channel.send(reply)
+          co.runs = 1
+        else:
+          reply = points, "is not possible to pick"
+          await message.channel.send(reply)
+      elif contents.startswith("!Astronomy"):
+        points = int(contents[11:])
+        if points in q.Astronomy_q:
+          reply = q.Astronomy_q[points]
+          await message.channel.send(reply)
+          co.runs = 1
+        else:
+          reply = points, "is not possible to pick"
+          await message.channel.send(reply)
+      elif contents.startswith("!Landmark"):
+        points = int(contents[10:])
+        if points in q.Landmark_q:
+          reply = q.Landmark_q[points]
+          await message.channel.send(reply)
+          co.runs = 1
+        else:
+          reply = points, "is not possible to pick"
+          await message.channel.send(reply)
+      elif co.runs == 1:
+        if contents.startwith("!Math" or "!Capital" or "!Celeb" or "!Astronomy" or "!Landmark"):
+          reply = "Wait for the current question to be answered"
+          await message.channel.send(reply)
+        elif contents.startwith("!What" or "!Who"):
+          if contents[1:] == a.Capital_a[points]:
+            reply = "That's right! Choose next question."
+            await message.channel.send(reply)
+            co.runs = 0
+          elif contents[1:] == a.Capital_a[points]:
+            reply = "That's right! Choose next question."
+            await message.channel.send(reply)
+            co.runs = 0
+          elif contents[1:] == a.Capital_a[points]:
+            reply = "That's right! Choose next question."
+            await message.channel.send(reply)
+            co.runs = 0
+          elif contents[1:] == a.Capital_a[points]:
+            reply = "That's right! Choose next question."
+            await message.channel.send(reply)
+            co.runs = 0
+          elif contents[1:] == a.Capital_a[points]:
+            reply = "That's right! Choose next question."
+            await message.channel.send(reply)
+            co.runs = 0
+          else:
+            reply = "That's wrong..."
+            await message.channel.send(reply)
+            co.runs = 0
+        else:
+          reply = "Not a valid command. Use help function"
+          await message.channel.send(reply)
 
   print(contents)
   print(user_id)
