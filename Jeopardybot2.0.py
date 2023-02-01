@@ -46,7 +46,7 @@ async def on_message(message):
         globals()[user_id] = []
         Players.update({str(user_id): globals()[user_id]})
         reply = co.get_grid_lines(co.grid)
-        await message.channel.send("\n".join(reply))
+        await message.channel.send("\n".join("Use '!help' for help", reply))
     elif str(user_id) in Players:
       if contents.startswith("!points"):
         points = 0
@@ -55,10 +55,20 @@ async def on_message(message):
         reply = points
         await message.channel.send(reply)
 
-      #elif contents.startswith("!help"):
-
-      #evt. en til at vise gridet?
-      #husk questions og answers lige skal være færdige lavede nogle små rettelser mens jeg svarede på spørgsmål
+      elif contents.startswith("!help"):
+        reply = ['"!join" makes you join the game and you are now able to ask for questions',
+                 '"!points" sents the amount of points you have',
+                 '"!show" shows the grid as it is at the moment',
+                 '"!Math" ask for a question in the math category follow by a number from 100 - 500',
+                 '"!Capital" ask for a question in the capital category follow by a number from 100 - 500',
+                 '"!Celeb" ask for a question in the celeberity category follow by a number from 100 - 500',
+                 '"!Astro" ask for a question in the Astronomy category follow by a number from 100 - 500',
+                 '"!Landmark" ask for a question in the Landmark category follow by a number from 100 - 500',
+                 '"!What" Answer a question by the command follow be the answer, "!Who" is also possible']
+        await message.channel.send("\n".join(reply))
+      elif contents.startswith("!show"):
+        reply = co.get_grid_lines(co.grid)
+        await message.channel.send("\n".join(reply))
 
       elif co.runs == 0: 
         if contents.startswith("!Math"):
