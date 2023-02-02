@@ -1,7 +1,7 @@
 import discord
 import Answers as a
 import Questions as q
-import class_object as co
+import Grid as co
 import Jeopardybot2 as j
 
 def Help():

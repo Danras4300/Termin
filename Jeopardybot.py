@@ -2,7 +2,7 @@ from pdb import Restart
 import discord
 import Answers as a
 import Questions as q
-import class_object as co
+import Grid as co
 
 intents = discord.Intents.default()
 intents.message_content = True

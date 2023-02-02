@@ -1,7 +1,7 @@
 from pdb import Restart
 import discord
 import Answers as a
-import class_object as co
+import Grid as co
 import Messages as M
 
 intents = discord.Intents.default()
