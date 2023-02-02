@@ -2,6 +2,19 @@ import discord
 import Answers as a
 import Questions as q
 import class_object as co
+import Jeopardybot2 as j
+
+def Help():
+    reply = ['"!join" makes you join the game and you are now able to ask for questions',
+             '"!points" sents the amount of points you have',
+             '"!show" shows the grid as it is at the moment',
+             '"!Math" ask for a question in the math category follow by a number from 100 - 500',
+             '"!Capital" ask for a question in the capital category follow by a number from 100 - 500',
+             '"!Celeb" ask for a question in the celeberity category follow by a number from 100 - 500',
+             '"!Astro" ask for a question in the Astronomy category follow by a number from 100 - 500',
+             '"!Landmark" ask for a question in the Landmark category follow by a number from 100 - 500',
+             '"!What" Answer a question by the command follow be the answer, "!Who" is also possible']
+    return reply
 
 def Math(message):
     points = int(message[6:])

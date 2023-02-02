@@ -111,7 +111,4 @@ def get_grid_lines(grid):
             else:
                 row_str += 'XXX          '
         grid_lines.append(row_str)
-    print(grid_lines)
     return grid_lines
-
-print("\n".join(get_grid_lines(grid)))

@@ -1,7 +1,6 @@
 from pdb import Restart
 import discord
 import Answers as a
-import Questions as q
 import class_object as co
 import Messages as M
 
@@ -40,13 +39,16 @@ async def on_message(message):
   user_id = message.author.id
   contents = message.content
   print(contents.startswith(""))
-  if contents[0] == "!":
+  if contents.startswith("!help"):
+    await message.channel.send("\n".join(M.Help()))
+  elif contents[0] == "!":
     if str(user_id) not in Players:
       if contents.startswith("!join"):
         globals()[user_id] = []
         Players.update({str(user_id): globals()[user_id]})
-        reply = co.get_grid_lines(co.grid)
-        await message.channel.send("\n".join("Use '!help' for help", reply))
+        reply = ["Use '!help' for help.", "",
+                 "\n".join(co.get_grid_lines(co.grid))]
+        await message.channel.send("\n".join(reply))
     elif str(user_id) in Players:
       if contents.startswith("!points"):
         points = 0
@@ -54,23 +56,11 @@ async def on_message(message):
           points += p
         reply = points
         await message.channel.send(reply)
-
-      elif contents.startswith("!help"):
-        reply = ['"!join" makes you join the game and you are now able to ask for questions',
-                 '"!points" sents the amount of points you have',
-                 '"!show" shows the grid as it is at the moment',
-                 '"!Math" ask for a question in the math category follow by a number from 100 - 500',
-                 '"!Capital" ask for a question in the capital category follow by a number from 100 - 500',
-                 '"!Celeb" ask for a question in the celeberity category follow by a number from 100 - 500',
-                 '"!Astro" ask for a question in the Astronomy category follow by a number from 100 - 500',
-                 '"!Landmark" ask for a question in the Landmark category follow by a number from 100 - 500',
-                 '"!What" Answer a question by the command follow be the answer, "!Who" is also possible']
-        await message.channel.send("\n".join(reply))
       elif contents.startswith("!show"):
         reply = co.get_grid_lines(co.grid)
         await message.channel.send("\n".join(reply))
 
-      elif co.runs == 0: 
+      elif co.runs == 0:
         if contents.startswith("!Math"):
           await message.channel.send(M.Math(contents))
         elif contents.startswith("!Capital"):
@@ -115,12 +105,6 @@ async def on_message(message):
         else:
           reply = "Not a valid command. Use help function"
           await message.channel.send(reply)
-        
-
-  print(contents)
-  print(user_id)
-  print(Players)
-  print(a.Math_a[co.points])
 
 token = get_token()
 client.run(token)
