@@ -4,6 +4,6 @@ Capital_q =  {100 : 'what is the capital of Denmark', 200 : 'what is the capital
 
 Celeb_q =  {100 : 'Image', 200 : 'Image', 300 : 'Image', 400 : 'Image', 500 : 'Image'}
 
-Astronomy_q = {100 : 'What is the number of moons that cirkel around Pluto', 200 : 'Image', 300 : 'What is the number of moons that cirkel around Jupiter', 400 : 'Can a star turn into a planet?', 500 : 'Can gravity form waves?'}
+Astronomy_q = {100 : 'what is the closest planet to Earth?', 200 : 'Image', 300 : 'What is the largest planet in the solar system?', 400 : 'what is the furthest planet to Eart?', 500 : 'what os the distance between earth and the sun? (in km)'}
 
 Landmark_q = {100 : 'Image', 200 : 'Image', 300 : 'Image', 400 : 'Image', 500 : 'Image'}
