@@ -1,7 +1,5 @@
 import Questions as q
 import Answers as a
-import Images.Landmark as l
-import Images.Celeb as c
 
 #Used by the bot to determind question type (question or answer)
 runs=0
@@ -15,10 +13,17 @@ grid = [["Math", "Capital", "Celeb", "Astronomy", "Landmark"],
         [400, 400, 400, 400, 400],
         [500, 500, 500, 500, 500],]
 
-#used to edit the grid from a number to xxx
+#bruges til at ændre fra en point værdi til xxx
+#tager 3 argumenter fra bot2 for at ændre værdien
 def edit_grid(grid, points, cat):
+    #den tjekker først med "cat" argumentet hvad kategori der skal ændres
     if cat == "!Math":
+        #herefter tjekker den med "points" hvilket 
+        #specifikt point der skal ændres
         if points == 100:
+            #nu bruges grid argumentet til at fortælle 
+            #hvilket grid vi vil ændre. så skiftes
+            #værdien til "xxx" i det korekte punkt
             grid[1][0] = "xxx"
         elif points == 200:
             grid[2][0] = "xxx"
